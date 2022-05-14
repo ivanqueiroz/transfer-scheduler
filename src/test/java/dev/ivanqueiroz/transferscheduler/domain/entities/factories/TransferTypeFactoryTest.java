@@ -1,9 +1,9 @@
 package dev.ivanqueiroz.transferscheduler.domain.entities.factories;
 
 import dev.ivanqueiroz.transferscheduler.domain.entities.Transfer;
-import dev.ivanqueiroz.transferscheduler.domain.entities.TransferTypeA;
-import dev.ivanqueiroz.transferscheduler.domain.entities.TransferTypeB;
-import dev.ivanqueiroz.transferscheduler.domain.entities.TransferTypeC;
+import dev.ivanqueiroz.transferscheduler.domain.entities.impl.TransferTypeA;
+import dev.ivanqueiroz.transferscheduler.domain.entities.impl.TransferTypeB;
+import dev.ivanqueiroz.transferscheduler.domain.entities.impl.TransferTypeC;
 import dev.ivanqueiroz.transferscheduler.domain.exceptions.InvalidDateIntervalException;
 import org.junit.jupiter.api.Test;
 

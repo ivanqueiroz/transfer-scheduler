@@ -22,9 +22,9 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Table(name = "transfer")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "type", length = 1, discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorColumn(name = "transfer_type", length = 1, discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("T")
-@MappedSuperclass
+@Entity
 public abstract class Transfer {
 
   @Id
@@ -51,18 +51,23 @@ public abstract class Transfer {
   private LocalDate transferDate;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "fk_origin_source")
+  @JoinColumn(name = "fk_source_account")
   private Account source;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "fk_destination_account")
   private Account destination;
 
-  @Column(insertable = false, updatable = false)
+  @Column(insertable = false, updatable = false, name = "transfer_type")
   private String type;
 
   public long getDaysDiference() {
-    return Duration.between(this.getTransferDate().atStartOfDay(), this.getScheduleDate().atStartOfDay()).toDays();
+    return Duration.between(this.getScheduleDate().atStartOfDay(), this.getTransferDate().atStartOfDay()).toDays();
   }
+
+  @Transient
+  public abstract void setCalcTax(TaxCalc taxCalc);
+
+  public abstract BigDecimal calculateTax();
 
 }

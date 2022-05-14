@@ -13,7 +13,12 @@ public class TransferTypeFactory {
   }
 
   public static Transfer getTransfer(LocalDate transferDate) {
-    return transferTypeFromTransferDate(transferDate).getConstructor().get();
+    TransferType transferType = transferTypeFromTransferDate(transferDate);
+    Transfer transfer = transferType.getConstructor().get();
+    transfer.setTransferDate(transferDate);
+    transfer.setScheduleDate(LocalDate.now());
+    transfer.setCalcTax(transferType.getCalc());
+    return transfer;
   }
 
   private static TransferType transferTypeFromTransferDate(LocalDate transferDate) {

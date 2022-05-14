@@ -4,13 +4,13 @@ import dev.ivanqueiroz.transferscheduler.domain.entities.Transfer;
 import dev.ivanqueiroz.transferscheduler.domain.entities.repositories.AccountRepository;
 import dev.ivanqueiroz.transferscheduler.domain.entities.repositories.TransferRepository;
 import dev.ivanqueiroz.transferscheduler.domain.services.TransferService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class TransferServiceImpl implements TransferService {
 
   private final TransferRepository transferRepository;

@@ -8,6 +8,6 @@ import java.math.BigDecimal;
 public class TransferATaxCalc implements TaxCalc {
   @Override
   public BigDecimal calc(Transfer transfer) {
-    return BigDecimal.valueOf(3L).add(transfer.getAmount().multiply(BigDecimal.valueOf(0.03)));
+    return new BigDecimal("3.0").add(transfer.getAmount().multiply(BigDecimal.valueOf(0.03)));
   }
 }
