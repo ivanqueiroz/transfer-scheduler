@@ -23,7 +23,7 @@ public class TransferTypeFactory {
 
   private static TransferType transferTypeFromTransferDate(LocalDate transferDate) {
     if (transferDate.isBefore(LocalDate.now())) {
-      throw new InvalidDateIntervalException("Invalid Date interval");
+      throw new InvalidDateIntervalException("Transfer date before current date.");
     }
     if (transferDate.isEqual(LocalDate.now())) {
       return TransferType.A;
