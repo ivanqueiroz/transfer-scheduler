@@ -24,7 +24,7 @@
     <img alt="Stargazers" src="https://img.shields.io/badge/Blog-Ivan Queiroz-%237159c1?style=flat&logo=ghost">
   </a>
 
-  <img alt="Build Status" src="https://github.com/ivanqueiroz/transfer-scheduler/actions/workflows/ci-prod.yml/badge.svg">
+  <img alt="Build Status" src="https://github.com/ivanqueiroz/transfer-scheduler/actions/workflows/gradle.yml/badge.svg">
 </p>
 
 <h4 align="center"> 
