@@ -34,7 +34,7 @@ public class TransferServiceImpl implements TransferService {
 
   private void validate(Transfer transfer) {
     if (transfer.getSource().getNumber().equals(transfer.getDestination().getNumber())) {
-      throw new BusinessRuleException("Transfer should have different origin and destination");
+      throw new BusinessRuleException("exception.transfer.rule1");
     }
     this.validateAccount(transfer.getSource());
     this.validateAccount(transfer.getDestination());
@@ -43,7 +43,7 @@ public class TransferServiceImpl implements TransferService {
   private void validateAccount(Account account) {
     String accountNumber = account.getNumber();
     if (accountRepository.findById(accountNumber).isEmpty()) {
-      throw new BusinessRuleException("Account not exist: %s".formatted(accountNumber));
+      throw new BusinessRuleException("exception.transfer.rule2");
     }
   }
 }

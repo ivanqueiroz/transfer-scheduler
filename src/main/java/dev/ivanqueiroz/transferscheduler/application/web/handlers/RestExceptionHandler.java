@@ -3,48 +3,70 @@ package dev.ivanqueiroz.transferscheduler.application.web.handlers;
 import dev.ivanqueiroz.transferscheduler.application.web.dto.ExceptionDto;
 import dev.ivanqueiroz.transferscheduler.domain.exceptions.InvalidDateIntervalException;
 import dev.ivanqueiroz.transferscheduler.domain.exceptions.TransferNotFoundException;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.MessageSource;
+import org.springframework.context.NoSuchMessageException;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.BindException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import java.util.List;
+import java.util.Locale;
+
 @Slf4j
 @ControllerAdvice
+@RequiredArgsConstructor
 public class RestExceptionHandler {
+
+  private final MessageSource messageSource;
 
   @ResponseBody
   @ExceptionHandler(TransferNotFoundException.class)
   @ResponseStatus(HttpStatus.NOT_FOUND)
-  ExceptionDto accountNotFoundHandler(TransferNotFoundException ex) {
-    log.error("Transfer not found: {}", ex.getLocalizedMessage(), ex);
-    return new ExceptionDto(HttpStatus.NOT_FOUND.value(), ex.getMessage(), ex.getLocalizedMessage());
+  ExceptionDto accountNotFoundHandler(TransferNotFoundException ex, Locale locale) {
+    String message = returnLocalizedMessage(ex.getMessage(), locale);
+    log.error("Transfer not found: {}", message, ex);
+    return new ExceptionDto(HttpStatus.NOT_FOUND.value(), message);
   }
 
   @ResponseBody
   @ExceptionHandler(InvalidDateIntervalException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
-  ExceptionDto accountNotFoundHandler(InvalidDateIntervalException ex) {
-    log.error("Unexpected date interval: {}", ex.getLocalizedMessage(), ex);
-    return new ExceptionDto(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), ex.getLocalizedMessage());
+  ExceptionDto accountNotFoundHandler(InvalidDateIntervalException ex, Locale locale) {
+    String message = returnLocalizedMessage(ex.getMessage(), locale);
+    log.error("Unexpected date interval: {}", ex.getMessage(), ex);
+    return new ExceptionDto(HttpStatus.BAD_REQUEST.value(), message);
   }
 
   @ResponseBody
   @ExceptionHandler(Throwable.class)
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-  ExceptionDto handlerMethodThrowable(Throwable ex) {
-    log.error("Internal error: {}", ex.getLocalizedMessage(), ex);
-    return new ExceptionDto(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage(), ex.getLocalizedMessage());
+  ExceptionDto handlerMethodThrowable(Throwable ex, Locale locale) {
+    String message = returnLocalizedMessage(ex.getMessage(), locale);
+    log.error("Internal error: {}", ex.getMessage(), ex);
+    return new ExceptionDto(HttpStatus.INTERNAL_SERVER_ERROR.value(), message);
   }
 
   @ResponseBody
-  @ExceptionHandler(BindException.class)
+  @ExceptionHandler(MethodArgumentNotValidException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
-  ExceptionDto bindigErrorsHandler(BindException ex) {
-    log.error("Validation error: {}", ex.getLocalizedMessage(), ex);
-    return new ExceptionDto(HttpStatus.BAD_REQUEST.value(), ex.getMessage(), ex.getLocalizedMessage());
+  ExceptionDto bindigErrorsHandler(MethodArgumentNotValidException ex, Locale locale) {
+    List<String> errorMessages = ex.getAllErrors().stream().map(objectError -> messageSource.getMessage(objectError, locale)).toList();
+    log.error("Validation error: {}", errorMessages, ex);
+    return new ExceptionDto(HttpStatus.BAD_REQUEST.value(), errorMessages.toString());
+  }
+
+  private String returnLocalizedMessage(String key, Locale locale) {
+    try {
+      return messageSource.getMessage(key, null, locale);
+    } catch (NoSuchMessageException ex) {
+      log.error("Message not found");
+      return key;
+    }
   }
 
 }

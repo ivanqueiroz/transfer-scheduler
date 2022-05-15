@@ -34,7 +34,7 @@ public class TransferController {
     List<TransferDto> listSchedules = transferService.listSchedules(pageable).stream().toList().stream().map(TransferDto::valueOf).toList();
     log.info("Return schedules %s".formatted(listSchedules.size()));
     if (listSchedules.isEmpty()) {
-      throw new TransferNotFoundException("No transfers found");
+      throw new TransferNotFoundException("exception.transfer.notFound");
     }
     return new PageImpl<>(listSchedules, pageable, listSchedules.size());
   }

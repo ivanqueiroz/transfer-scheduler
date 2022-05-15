@@ -10,8 +10,8 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public record TransferDto(Long id, @NotNull BigDecimal amount, BigDecimal taxAmount, @FutureOrPresent LocalDate transferDate, @FutureOrPresent LocalDate scheduleDate, @NotBlank String accountSource,
-                          @NotBlank String accountDestination) {
+public record TransferDto(Long id, @NotNull(message = "{amount.notnull}") BigDecimal amount, BigDecimal taxAmount, @FutureOrPresent LocalDate transferDate, @FutureOrPresent LocalDate scheduleDate,
+                          @NotBlank String accountSource, @NotBlank String accountDestination) {
   public Transfer toTransfer() {
     Transfer transfer = TransferTypeFactory.getTransfer(this.transferDate);
     transfer.setAmount(this.amount);

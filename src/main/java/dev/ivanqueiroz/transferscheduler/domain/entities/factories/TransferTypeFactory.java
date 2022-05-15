@@ -23,7 +23,7 @@ public class TransferTypeFactory {
 
   private static TransferType transferTypeFromTransferDate(LocalDate transferDate) {
     if (transferDate.isBefore(LocalDate.now())) {
-      throw new InvalidDateIntervalException("Transfer date before current date.");
+      throw new InvalidDateIntervalException("exception.transfer.rule3");
     }
     if (transferDate.isEqual(LocalDate.now())) {
       return TransferType.A;
@@ -34,6 +34,6 @@ public class TransferTypeFactory {
     if (Duration.between(LocalDate.now().atStartOfDay(), transferDate.atStartOfDay()).toDays() > 10) {
       return TransferType.C;
     }
-    throw new InvalidDateIntervalException("Invalid Date interval");
+    throw new InvalidDateIntervalException("exception.transfer.rule4");
   }
 }
