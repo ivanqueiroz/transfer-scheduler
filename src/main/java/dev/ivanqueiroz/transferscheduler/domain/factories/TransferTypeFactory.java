@@ -1,4 +1,4 @@
-package dev.ivanqueiroz.transferscheduler.domain.entities.factories;
+package dev.ivanqueiroz.transferscheduler.domain.factories;
 
 import dev.ivanqueiroz.transferscheduler.domain.entities.Transfer;
 import dev.ivanqueiroz.transferscheduler.domain.exceptions.InvalidDateIntervalException;

@@ -5,6 +5,7 @@ import dev.ivanqueiroz.transferscheduler.domain.entities.impl.TransferTypeA;
 import dev.ivanqueiroz.transferscheduler.domain.entities.impl.TransferTypeB;
 import dev.ivanqueiroz.transferscheduler.domain.entities.impl.TransferTypeC;
 import dev.ivanqueiroz.transferscheduler.domain.exceptions.InvalidDateIntervalException;
+import dev.ivanqueiroz.transferscheduler.domain.factories.TransferTypeFactory;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

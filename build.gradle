@@ -36,3 +36,14 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+springBoot {
+    buildInfo {
+        properties {
+            name = 'Transfer Scheduler'
+            additional = [
+                    'javaVersion': sourceCompatibility
+            ]
+        }
+    }
+}

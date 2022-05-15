@@ -4,6 +4,11 @@ import dev.ivanqueiroz.transferscheduler.application.web.dto.TransferDto;
 import dev.ivanqueiroz.transferscheduler.domain.entities.Transfer;
 import dev.ivanqueiroz.transferscheduler.domain.exceptions.TransferNotFoundException;
 import dev.ivanqueiroz.transferscheduler.domain.services.TransferService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -27,6 +32,9 @@ public class TransferController {
 
   private final TransferService transferService;
 
+  @Operation(summary = "List all scheduled transfers")
+  @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Found records", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = TransferDto.class))}),
+    @ApiResponse(responseCode = "400", description = "Invalid request suplied", content = @Content), @ApiResponse(responseCode = "404", description = "No records found", content = @Content)})
   @GetMapping
   Page<TransferDto> getAllSchedules(@RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "20") int size) {
     var pageable = PageRequest.of(page, size);
@@ -39,6 +47,9 @@ public class TransferController {
     return new PageImpl<>(listSchedules, pageable, listSchedules.size());
   }
 
+  @Operation(summary = "Save transfer")
+  @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Transfer saved", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = TransferDto.class))}),
+    @ApiResponse(responseCode = "400", description = "Invalid request suplied", content = @Content)})
   @PostMapping
   TransferDto schedule(@RequestBody @Valid TransferDto transferDto) {
     log.debug("Converting schedule...");

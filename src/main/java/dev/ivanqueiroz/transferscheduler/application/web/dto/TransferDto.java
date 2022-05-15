@@ -2,7 +2,7 @@ package dev.ivanqueiroz.transferscheduler.application.web.dto;
 
 import dev.ivanqueiroz.transferscheduler.domain.entities.Account;
 import dev.ivanqueiroz.transferscheduler.domain.entities.Transfer;
-import dev.ivanqueiroz.transferscheduler.domain.entities.factories.TransferTypeFactory;
+import dev.ivanqueiroz.transferscheduler.domain.factories.TransferTypeFactory;
 
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotBlank;

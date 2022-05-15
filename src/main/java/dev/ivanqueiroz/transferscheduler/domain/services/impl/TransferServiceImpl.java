@@ -2,9 +2,9 @@ package dev.ivanqueiroz.transferscheduler.domain.services.impl;
 
 import dev.ivanqueiroz.transferscheduler.domain.entities.Account;
 import dev.ivanqueiroz.transferscheduler.domain.entities.Transfer;
-import dev.ivanqueiroz.transferscheduler.domain.entities.repositories.AccountRepository;
-import dev.ivanqueiroz.transferscheduler.domain.entities.repositories.TransferRepository;
 import dev.ivanqueiroz.transferscheduler.domain.exceptions.BusinessRuleException;
+import dev.ivanqueiroz.transferscheduler.domain.repositories.AccountRepository;
+import dev.ivanqueiroz.transferscheduler.domain.repositories.TransferRepository;
 import dev.ivanqueiroz.transferscheduler.domain.services.TransferService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

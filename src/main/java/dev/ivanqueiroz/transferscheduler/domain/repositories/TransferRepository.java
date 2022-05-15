@@ -1,4 +1,4 @@
-package dev.ivanqueiroz.transferscheduler.domain.entities.repositories;
+package dev.ivanqueiroz.transferscheduler.domain.repositories;
 
 import dev.ivanqueiroz.transferscheduler.domain.entities.Transfer;
 import org.springframework.data.jpa.repository.JpaRepository;

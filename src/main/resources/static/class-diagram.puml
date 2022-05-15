@@ -1,0 +1,43 @@
+@startuml
+
+abstract class Transfer
+class TransferTypeA
+class TransferTypeB
+class TransferTypeC
+interface TaxCalc
+class TransferATaxCalc
+class TransferBTaxCalc
+class TransferCTaxCalc
+class Account
+together {
+    class TransferTypeFactory
+    enum TransferType
+}
+
+class TransferTypeA extends Transfer
+class TransferTypeB extends Transfer
+class TransferTypeC extends Transfer
+
+class TransferATaxCalc implements TaxCalc
+class TransferBTaxCalc implements TaxCalc
+class TransferCTaxCalc implements TaxCalc
+
+Transfer *- Account
+
+TransferTypeA *- TaxCalc
+TransferTypeB *- TaxCalc
+TransferTypeC *- TaxCalc
+
+enum TransferType {
+A
+B
+C
+getConstructor(): Supplier<Transfer>
+getCalc(): TaxCalc
+}
+
+interface TaxCalc {
+calc(Transfer transfer): BigDecimal
+}
+
+@enduml

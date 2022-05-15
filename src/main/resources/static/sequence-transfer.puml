@@ -1,0 +1,15 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+Clientes -> TransferController: /schedule
+TransferController --> TransferController : valida dados
+TransferController -> TransferService: listSchedules
+TransferService -> TransferRepository: findAll
+TransferRepository --> TransferService: transferências
+TransferService --> TransferService: valida se há dados
+TransferService --> TransferController: transferências
+TransferController --> Clientes: transferências (Json)
+
+@enduml

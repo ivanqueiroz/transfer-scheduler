@@ -1,0 +1,18 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+Clientes -> TransferController: (post) /schedule
+TransferController -> TransferTypeFactory: cria tipo de transferência baseada nos dados
+TransferTypeFactory --> TransferController: objeto Transfer instanciado
+TransferController -> TransferService: schedule(objeto Transfer instanciado)
+TransferService --> TransferService: valida dados do objeto
+TransferService -> TransferRepository: save
+TransferRepository --> TransferService: objeto Transfer salvo
+TransferService --> TransferController: objeto Transfer salvo
+TransferController --> TransferController: converte para projeção Json
+TransferController --> Clientes: Json do objeto Transfer salvo
+
+
+@enduml
