@@ -292,10 +292,6 @@ Os testes criados são:
 - **TransferTypeFactoryTest** — Realiza os testes da fábrica dos tipos de Transfer.
 - **CalculationTests** — Testa a validação dos cálculos de taxas.
 
-## 👨‍💻 Contribuidores
-
----
-
 ## 🦸 Autor
 
 <a href="https://ivanqueiroz.dev">
