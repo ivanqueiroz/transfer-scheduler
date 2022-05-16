@@ -30,7 +30,7 @@ public class RestExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     ExceptionDto accountNotFoundHandler(AccountNotFoundException ex, Locale locale) {
         String message = returnLocalizedMessage(ex.getMessage(), locale);
-        log.error("Account not found: {}", message, ex);
+        log.error("Account not found: {}", message);
         return new ExceptionDto(HttpStatus.NOT_FOUND.value(), message);
     }
 
@@ -39,7 +39,7 @@ public class RestExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     ExceptionDto transferNotFoundHandler(TransferNotFoundException ex, Locale locale) {
         String message = returnLocalizedMessage(ex.getMessage(), locale);
-        log.error("Transfer not found: {}", message, ex);
+        log.error("Transfer not found: {}", message);
         return new ExceptionDto(HttpStatus.NOT_FOUND.value(), message);
     }
 
@@ -48,7 +48,7 @@ public class RestExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     ExceptionDto invalidIntervaldHandler(InvalidDateIntervalException ex, Locale locale) {
         String message = returnLocalizedMessage(ex.getMessage(), locale);
-        log.error("Unexpected date interval: {}", ex.getMessage(), ex);
+        log.error("Unexpected date interval: {}", ex.getMessage());
         return new ExceptionDto(HttpStatus.BAD_REQUEST.value(), message);
     }
 
@@ -57,7 +57,7 @@ public class RestExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     ExceptionDto handlerMethodThrowable(Throwable ex, Locale locale) {
         String message = returnLocalizedMessage(ex.getMessage(), locale);
-        log.error("Internal error: {}", ex.getMessage(), ex);
+        log.error("Internal error: {}", ex.getMessage());
         return new ExceptionDto(HttpStatus.INTERNAL_SERVER_ERROR.value(), message);
     }
 
@@ -66,7 +66,7 @@ public class RestExceptionHandler {
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     ExceptionDto bindigErrorsHandler(MethodArgumentNotValidException ex, Locale locale) {
         List<String> errorMessages = ex.getAllErrors().stream().map(objectError -> messageSource.getMessage(objectError, locale)).toList();
-        log.error("Validation error: {}", errorMessages, ex);
+        log.error("Validation error: {}", errorMessages);
         return new ExceptionDto(HttpStatus.UNPROCESSABLE_ENTITY.value(), errorMessages.toString());
     }
 

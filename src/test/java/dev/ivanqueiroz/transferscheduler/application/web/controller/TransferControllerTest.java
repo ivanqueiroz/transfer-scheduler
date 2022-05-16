@@ -57,7 +57,7 @@ class TransferControllerTest {
     }
 
     @Test
-    @DisplayName("when send a get request, no records in database, should return 4040")
+    @DisplayName("when send a get request, no records in database, should return 404")
     void getEmptyResult(@Autowired MockMvc mvc) throws Exception {
 
         var pageRequest = PageRequest.of(0, 20);
@@ -104,6 +104,7 @@ class TransferControllerTest {
     }
 
     @Test
+    @DisplayName("when send a post transfer request, should execute successfuly")
     void postSucess(@Autowired MockMvc mvc) throws Exception {
 
         Transfer transfer = TransferMockFactory.createMockTransfer();
@@ -118,6 +119,53 @@ class TransferControllerTest {
                 .andExpect(jsonPath("$.taxAmount").value(BigDecimal.valueOf(12)));
 
         verify(transferService, times(1)).schedule(any());
+    }
+
+    @Test
+    @DisplayName("when send a post with Accept-Language en-US, must return errors in english")
+    void postWithEnLanguageSelection(@Autowired MockMvc mvc) throws Exception {
+        var request = TransferMockFactory.createMockTransferDto();
+        given(transferService.schedule(any())).willThrow(new AccountNotFoundException("msg.test"));
+
+        mvc.perform(post("/v1/schedule")
+                        .header("Accept-Language", "en-US")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isNotFound())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(jsonPath("$.message").value("This is a test"));
+
+    }
+
+    @Test
+    @DisplayName("when send a post with Accept-Language en-US, must return errors in portuguese")
+    void postWithBrLanguageSelection(@Autowired MockMvc mvc) throws Exception {
+        var request = TransferMockFactory.createMockTransferDto();
+        given(transferService.schedule(any())).willThrow(new AccountNotFoundException("msg.test"));
+
+        mvc.perform(post("/v1/schedule")
+                        .header("Accept-Language", "pt-BR")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isNotFound())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(jsonPath("$.message").value("Isto é um teste"));
+
+    }
+
+    @Test
+    @DisplayName("when send a post with Accept-Language en-US, must return errors in portuguese")
+    void postWitoutLanguageSelection(@Autowired MockMvc mvc) throws Exception {
+        var request = TransferMockFactory.createMockTransferDto();
+        given(transferService.schedule(any())).willThrow(new AccountNotFoundException("msg.test"));
+
+        mvc.perform(post("/v1/schedule")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isNotFound())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(jsonPath("$.message").value("This is a test"));
+
     }
 
 }
