@@ -12,16 +12,16 @@ import java.math.BigDecimal;
 @DiscriminatorValue(value = "C")
 public class TransferTypeC extends Transfer {
 
-  @Transient
-  private TaxCalc taxCalc;
+    @Transient
+    private TaxCalc taxCalc;
 
-  @Override
-  public void setCalcTax(TaxCalc taxCalc) {
-    this.taxCalc = taxCalc;
-  }
+    @Override
+    public void setCalcTax(TaxCalc taxCalc) {
+        this.taxCalc = taxCalc;
+    }
 
-  @Override
-  public BigDecimal calculateTax() {
-    return taxCalc.calc(this);
-  }
+    @Override
+    public BigDecimal calculateTax() {
+        return taxCalc.calc(this);
+    }
 }

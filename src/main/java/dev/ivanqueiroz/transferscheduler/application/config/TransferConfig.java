@@ -11,14 +11,14 @@ import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
 import java.util.Locale;
 
 @OpenAPIDefinition(info = @Info(title = "Transfer Scheduler API", description = "Information", contact = @Contact(name = "Ivan Frederico Bomfim Cruz de Queiroz", email = "ivanqueiroz@gmail.com")), servers = {
-  @Server(url = "http://localhost:8080/"),})
+        @Server(url = "http://localhost:8080/"),})
 @Configuration
 public class TransferConfig {
 
-  @Bean
-  public AcceptHeaderLocaleResolver localeResolver() {
-    final AcceptHeaderLocaleResolver resolver = new AcceptHeaderLocaleResolver();
-    resolver.setDefaultLocale(Locale.US);
-    return resolver;
-  }
+    @Bean
+    public AcceptHeaderLocaleResolver localeResolver() {
+        final AcceptHeaderLocaleResolver resolver = new AcceptHeaderLocaleResolver();
+        resolver.setDefaultLocale(Locale.US);
+        return resolver;
+    }
 }

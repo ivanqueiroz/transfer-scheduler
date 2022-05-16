@@ -37,6 +37,16 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
+test {
+    testLogging {
+        events "failed"
+        exceptionFormat "full"
+        showExceptions true
+        showCauses true
+        showStackTraces true
+    }
+}
+
 springBoot {
     buildInfo {
         properties {

@@ -11,20 +11,20 @@ import java.math.BigDecimal;
 @Entity
 @DiscriminatorValue(value = "B")
 public class TransferTypeB extends Transfer {
-  public BigDecimal calcTax(TaxCalc taxCalc) {
-    return taxCalc.calc(this);
-  }
+    public BigDecimal calcTax(TaxCalc taxCalc) {
+        return taxCalc.calc(this);
+    }
 
-  @Transient
-  private TaxCalc taxCalc;
+    @Transient
+    private TaxCalc taxCalc;
 
-  @Override
-  public void setCalcTax(TaxCalc taxCalc) {
-    this.taxCalc = taxCalc;
-  }
+    @Override
+    public void setCalcTax(TaxCalc taxCalc) {
+        this.taxCalc = taxCalc;
+    }
 
-  @Override
-  public BigDecimal calculateTax() {
-    return taxCalc.calc(this);
-  }
+    @Override
+    public BigDecimal calculateTax() {
+        return taxCalc.calc(this);
+    }
 }

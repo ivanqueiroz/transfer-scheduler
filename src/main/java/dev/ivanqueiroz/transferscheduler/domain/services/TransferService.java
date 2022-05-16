@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface TransferService {
-  Transfer schedule(Transfer transfer);
-  Page<Transfer> listSchedules(Pageable pageable);
+    Transfer schedule(Transfer transfer);
+
+    Page<Transfer> listSchedules(Pageable pageable);
 }

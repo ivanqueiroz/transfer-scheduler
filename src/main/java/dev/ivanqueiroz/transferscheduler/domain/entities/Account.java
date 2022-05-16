@@ -22,18 +22,18 @@ import javax.validation.constraints.NotBlank;
 @Table(name = "account")
 public class Account {
 
-  @Id
-  @Max(20)
-  private String number;
+    @Id
+    @Max(20)
+    private String number;
 
-  @Column(name = "person")
-  @NotBlank
-  @Max(50)
-  private String person;
+    @Column(name = "person")
+    @NotBlank
+    @Max(50)
+    private String person;
 
-  @Column(name = "document")
-  @NotBlank
-  @Max(20)
-  private String document;
+    @Column(name = "document")
+    @NotBlank
+    @Max(20)
+    private String document;
 
 }

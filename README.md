@@ -90,7 +90,7 @@ $ cd transfer-scheduler
 $ ./gradlew clean build (Linux) ou ./gradlew.bat clean build (Windows)
 
 # Execute a aplicação em modo de desenvolvimento
-$ ./gradlew bootRun
+$ ./gradlew bootRun (Linux) ou ./gradlew.bat bootRun (Windows)
 
 # O servidor inciará na porta:8080 - acesse http://localhost:8080 
 ```
@@ -146,7 +146,8 @@ curl --location --request POST 'http://localhost:8080/transfer/v1/schedule' \
 
 ## Internacionalização
 
-As mensagens de erro da api são internacionalizadas para português e inglÊs, para alterar é necessário passar a header **Accept-Language** com os valores **pt-BR** ou **en-US**, ex.:
+As mensagens de erro da api são internacionalizadas para português e inglês, para alterar é necessário passar a
+header **Accept-Language** com os valores **pt-BR** ou **en-US**, ex.:
 
 ### Request (en-US)
 

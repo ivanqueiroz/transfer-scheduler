@@ -7,23 +7,23 @@ import dev.ivanqueiroz.transferscheduler.domain.exceptions.TaxException;
 import java.math.BigDecimal;
 
 public class TransferCTaxCalc implements TaxCalc {
-  @Override
-  public BigDecimal calc(Transfer transfer) {
-    if (transfer.getAmount() == null) {
-      throw new TaxException("exception.tax.validation1");
+    @Override
+    public BigDecimal calc(Transfer transfer) {
+        if (transfer.getAmount() == null) {
+            throw new TaxException("exception.tax.validation1");
+        }
+        if (transfer.getDaysDiference() > 10 && transfer.getDaysDiference() <= 20) {
+            return transfer.getAmount().multiply(BigDecimal.valueOf(0.08));
+        }
+        if (transfer.getDaysDiference() > 20 && transfer.getDaysDiference() <= 30) {
+            return transfer.getAmount().multiply(BigDecimal.valueOf(0.06));
+        }
+        if (transfer.getDaysDiference() > 30 && transfer.getDaysDiference() <= 40) {
+            return transfer.getAmount().multiply(BigDecimal.valueOf(0.04));
+        }
+        if (transfer.getDaysDiference() > 40 && transfer.getAmount().longValue() > 100000) {
+            return transfer.getAmount().multiply(BigDecimal.valueOf(0.02));
+        }
+        throw new TaxException("exception.tax.validation2");
     }
-    if (transfer.getDaysDiference() > 10 && transfer.getDaysDiference() <= 20) {
-      return transfer.getAmount().multiply(BigDecimal.valueOf(0.08));
-    }
-    if (transfer.getDaysDiference() > 20 && transfer.getDaysDiference() <= 30) {
-      return transfer.getAmount().multiply(BigDecimal.valueOf(0.06));
-    }
-    if (transfer.getDaysDiference() > 30 && transfer.getDaysDiference() <= 40) {
-      return transfer.getAmount().multiply(BigDecimal.valueOf(0.04));
-    }
-    if (transfer.getDaysDiference() > 40 && transfer.getAmount().longValue() > 100000) {
-      return transfer.getAmount().multiply(BigDecimal.valueOf(0.02));
-    }
-    throw new TaxException("exception.tax.validation2");
-  }
 }

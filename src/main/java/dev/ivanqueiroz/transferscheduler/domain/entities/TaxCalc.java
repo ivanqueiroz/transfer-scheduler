@@ -4,6 +4,6 @@ import java.math.BigDecimal;
 
 public interface TaxCalc {
 
-  BigDecimal calc(Transfer transfer);
+    BigDecimal calc(Transfer transfer);
 
 }

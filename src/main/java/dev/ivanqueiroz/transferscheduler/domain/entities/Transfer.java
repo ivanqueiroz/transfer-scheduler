@@ -27,47 +27,47 @@ import java.time.LocalDate;
 @Entity
 public abstract class Transfer {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
-  @Column(name = "amount")
-  @Positive
-  @Digits(fraction = 2, integer = 10, message = "msg2")
-  private BigDecimal amount;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(name = "amount")
+    @Positive
+    @Digits(fraction = 2, integer = 10)
+    private BigDecimal amount;
 
-  @Column(name = "tax")
-  @Positive
-  @Digits(fraction = 2, integer = 10, message = "msg2")
-  private BigDecimal tax;
+    @Column(name = "tax")
+    @Positive
+    @Digits(fraction = 2, integer = 10)
+    private BigDecimal tax;
 
-  @Column(columnDefinition = "DATE", name = "schedule_date")
-  @NotNull
-  @FutureOrPresent
-  private LocalDate scheduleDate;
+    @Column(columnDefinition = "DATE", name = "schedule_date")
+    @NotNull
+    @FutureOrPresent
+    private LocalDate scheduleDate;
 
-  @Column(columnDefinition = "DATE", name = "transfer_date")
-  @FutureOrPresent
-  @NotNull
-  private LocalDate transferDate;
+    @Column(columnDefinition = "DATE", name = "transfer_date")
+    @FutureOrPresent
+    @NotNull
+    private LocalDate transferDate;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "fk_source_account")
-  private Account source;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_source_account")
+    private Account source;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "fk_destination_account")
-  private Account destination;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_destination_account")
+    private Account destination;
 
-  @Column(insertable = false, updatable = false, name = "transfer_type")
-  private String type;
+    @Column(insertable = false, updatable = false, name = "transfer_type")
+    private String type;
 
-  public long getDaysDiference() {
-    return Duration.between(this.getScheduleDate().atStartOfDay(), this.getTransferDate().atStartOfDay()).toDays();
-  }
+    public long getDaysDiference() {
+        return Duration.between(this.getScheduleDate().atStartOfDay(), this.getTransferDate().atStartOfDay()).toDays();
+    }
 
-  @Transient
-  public abstract void setCalcTax(TaxCalc taxCalc);
+    @Transient
+    public abstract void setCalcTax(TaxCalc taxCalc);
 
-  public abstract BigDecimal calculateTax();
+    public abstract BigDecimal calculateTax();
 
 }
